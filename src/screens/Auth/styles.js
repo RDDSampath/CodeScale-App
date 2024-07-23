@@ -1,0 +1,171 @@
+import { StyleSheet} from "react-native";
+import { fonts } from "../../constants";
+import colors from "../../constants/colors";
+import { 
+    responsiveScreenHeight as SH,
+    responsiveScreenWidth as SW,
+    responsiveScreenFontSize as RF,
+  } from 'react-native-responsive-dimensions';
+  
+export default StyleSheet.create({
+    container: {
+        width: SW(100),
+        height: SH(100),
+        backgroundColor: colors.MAIN_THEME_COLOR,
+    },
+    headerText: {
+        color: colors.WHITE_COLOR,
+        fontSize: RF(3),
+        fontFamily: fonts.interMedium,
+        alignSelf:'center',
+        marginVertical: SH(5),
+    },
+    input: {
+        width: SW(60),
+        height: SH(5),
+        color: colors.WHITE_COLOR,
+        fontSize: RF(2),
+        fontFamily: fonts.interMedium,
+        alignSelf:'flex-start',
+        justifyContent: 'center',
+        marginLeft: SW(7),
+        marginTop: SH(1.75),
+    },
+    inputBox: {
+        width: SW(90),
+        height: SH(8),
+        backgroundColor: colors.SECONDARY_COLOR,
+        color: colors.WHITE_COLOR,
+        borderRadius: 10,
+        fontSize: RF(2),
+        fontFamily: fonts.interMedium,
+        alignSelf:'center',
+        marginTop: SH(2),
+    },
+    labelTxt: {
+        color: colors.LABEL_COLOR,
+        fontSize: RF(1.5),
+        fontFamily: fonts.interMedium,
+        marginLeft: SW(7),
+        marginTop: SH(1.5),
+    },
+    PasswordBox: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    rulesBox:{
+        width: SW(98),
+        height: SH(12),
+        marginTop: SH(3),
+        alignSelf:'center',
+        alignItems: 'center',
+    },
+    ruleLine:{
+        width: SW(96),
+        height: SH(4),
+        alignItems: 'center',
+        flexDirection:'row',
+        justifyContent: 'space-between',
+    },
+    rule:{
+        flexDirection:'row',
+        width: SW(43),
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    ruleIcon:{
+        width: SW(5),
+        height: SW(5),
+        marginHorizontal: SW(2),
+    },
+    ruleIcon2:{
+        width: SW(7),
+        height: SW(7),
+        marginHorizontal: SW(2),
+    },
+    showIcon:{
+        width: SW(5),
+        height: SW(5),
+    },
+    ruleText:{
+        color: colors.WHITE_COLOR,
+        fontSize: RF(1.5),
+        fontFamily: fonts.interMedium,
+    },
+    signBtn: {
+        width: SW(90),
+        height: SH(6),
+        backgroundColor: colors.BUTTON_COLOR,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: SH(5),
+        alignSelf:'center',
+    },
+    signBtnText: {
+        color: colors.BLACK_COLOR,
+        fontSize: RF(2.4),
+        fontFamily: fonts.interBold,
+    },
+    forgotButton: {
+        alignSelf:'flex-end',
+        marginRight: SW(5),
+        marginTop: SH(1),
+    },
+    forgotText: {
+        color: colors.WHITE_COLOR,
+        fontSize: RF(1.5),
+        fontFamily: fonts.interMedium,
+    },
+    signUpNav: {
+        flexDirection: 'row',
+        alignSelf:'center',
+        marginTop: SH(2),
+        position: 'absolute',
+        bottom: SH(10),
+    },
+    signUpText: {
+        color: colors.WHITE_COLOR,
+        fontSize: RF(2),
+        fontFamily: fonts.interMedium,
+    },
+    signUpBtn: {
+        color: colors.BUTTON_COLOR,
+        fontSize: RF(2),
+        fontFamily: fonts.interMedium,
+        marginLeft: SW(1),
+        shadowColor: colors.WHITE_COLOR,
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    logoIcon:{
+        width: SW(40),
+        height: SW(40),
+        alignSelf:'center',
+        marginTop: SH(10),
+        marginBottom: SH(3),
+    },
+    logoIconSignUp:{
+        width: SW(30),
+        height: SW(30),
+        alignSelf:'center',
+        marginTop: SH(5),
+        marginBottom: SH(1),
+    },
+    showPasswordBtn:{
+        justifyContent: 'center',
+        marginRight: SW(6),
+        marginTop  : SH(2),
+    },
+    errorText:{
+        color: colors.RED_COLOR,
+        fontSize: RF(1.3),
+        fontFamily: fonts.interRegular,
+        marginTop: SH(1),
+        marginLeft: SW(6),
+    },
+
+});
