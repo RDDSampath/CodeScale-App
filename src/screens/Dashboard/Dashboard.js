@@ -145,9 +145,15 @@ const Dashboard = ({navigation}) => {
                 </View>
             </View>
             {loading ? (
-                <Text>Loading...</Text>
+                <View style={styles.loadBack}>
+                    <Image source={images.loadingpet} style={styles.loading} />
+                </View>
             ) : error ? (
-                <Text>Error: {error}</Text>
+                <View style={styles.loadBack2}>
+                    <Image source={images.nowifi}  />
+                    <Text>{error}</Text>
+                </View>
+                
             ) : (
                 <FlatList
                     data={filteredCharacters}
@@ -164,8 +170,10 @@ const Dashboard = ({navigation}) => {
                                 />
                             </View>
                             <View style={styles.cardRight}>
-                                <Text style={styles.semiTitle}>{"Full Name : "}<Text style={styles.value}>{item.fullName}</Text></Text>
-                                <Text style={styles.semiTitle}>{"Family : "}<Text style={styles.value}>{item.family}</Text></Text>
+                                <Text style={styles.semiTitle}>{"Full Name : "}</Text>
+                                <Text style={styles.value}>{item.fullName}</Text>
+                                <Text style={styles.semiTitle}>{"Family : "}</Text>
+                                <Text style={styles.value}>{item.family}</Text>
                             </View>
                         </View>
                     )}

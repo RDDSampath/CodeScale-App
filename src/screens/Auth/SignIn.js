@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Switch, ToastAndroid, Image } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity,ToastAndroid, Image } from 'react-native';
 import styles from './styles';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../../firebase/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, images } from '../../constants';
-import { 
-    responsiveScreenHeight as SH,
-    responsiveScreenWidth as SW,
-    responsiveScreenFontSize as RF,
-  } from 'react-native-responsive-dimensions';
 
 const SignIn = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -18,6 +13,13 @@ const SignIn = ({navigation}) => {
 
 
     const signIn = () => {
+        const emailPattern = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+        if(email === '' && password === '' ) {
+            ToastAndroid.show('Email and password is required', ToastAndroid.SHORT);
+        } else if(emailPattern.test(email) === false){
+            ToastAndroid.show('Invalid email address', ToastAndroid.SHORT);
+            return;
+        }
         const auth = getAuth(app);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -42,7 +44,7 @@ const SignIn = ({navigation}) => {
         <View style={styles.container}>
             <Image source={images.logoWhite} style={styles.logoIcon} resizeMode='contain' />
             <View style={styles.inputBox}>
-                <Text style={styles.labelTxt}>Name</Text>
+                <Text style={styles.labelTxt}>Email </Text>
                 <TextInput
                     placeholder="Email"
                     placeholderTextColor={colors.LABEL_COLOR}

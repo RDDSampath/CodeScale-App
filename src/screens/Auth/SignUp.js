@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ToastAndroid, Image } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ToastAndroid, Image} from 'react-native';
 import styles from './styles';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { ref, push, set, onValue } from 'firebase/database';
-import {app, db } from '../../firebase/config';
+import {app} from '../../firebase/config';
 import colors from '../../constants/colors';
 import { images } from '../../constants/images';
 
@@ -228,7 +227,6 @@ const SignUp = ({navigation}) => {
                     </View>
                 </View>
             </View>
-
             <TouchableOpacity style={styles.signBtn} onPress={signUp}>
                 <Text style={styles.signBtnText}>Sign Up</Text>
             </TouchableOpacity>

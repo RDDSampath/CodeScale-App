@@ -20,7 +20,7 @@ import {
         padding: SW(2),
         borderRadius: SW(2),
         alignSelf: 'center',
-        borderRadius: SW(1),
+        borderRadius: SW(4),
         flexDirection: 'row',
     },
     characterImage: {
@@ -32,11 +32,17 @@ import {
     cardLeft: {
         width: '50%',
         height: '100%',
+        paddingLeft: SW(4),
     },
     cardRight: {
         width: '50%',
-        height: '100%',
-        paddingTop: SH(6),
+        height: '80%',
+        alignSelf: 'center',
+        marginTop: SH(3),
+        backgroundColor: colors.MAIN_THEME_COLOR,
+        borderRadius: SW(3),
+        paddingLeft: SW(3),
+        paddingTop: SH(1),
     },
     titleTxt: {
         color: colors.BLACK_COLOR,
@@ -45,14 +51,16 @@ import {
         marginBottom: SH(2),
     },
     semiTitle: {
-        color: colors.BLACK_COLOR,
-        fontSize: RF(1.8),
+        color: colors.BUTTON_COLOR,
+        fontSize: RF(1.7),
         fontFamily: fonts.interSemiBold,
     },
     value: {
-        color: colors.BLACK_COLOR,
-        fontSize: RF(1.8),
-        fontFamily: fonts.interRegular
+        color: colors.WHITE_COLOR,
+        fontSize: RF(1.6),
+        fontFamily: fonts.interRegular,
+        justifyContent: 'center',
+        textAlign: 'center',
     },
     header:{
         width:SW(100),
@@ -156,5 +164,24 @@ import {
             top: SH(2),
             left: SW(3),
         },
+        loadBack:{
+            width:SW(100),
+            height:SH(100),
+            justifyContent:'center',
+            alignItems:'center',
+        },
+        loadBack2:{
+            width:SW(100),
+            height:SH(100),
+            backgroundColor:colors.WHITE_COLOR,
+            justifyContent:'center',
+            alignItems:'center',
+        },
+        loading:{
+            width:SW(50),
+            height:SW(50),
+            resizeMode:'contain',
+        },
+        
 
 });

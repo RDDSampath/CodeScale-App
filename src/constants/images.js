@@ -13,6 +13,8 @@ const images = {
     voiceStart: require('../assets/images/voiceStart.png'),
     setting: require('../assets/images/setting.png'),
     back: require('../assets/images/back.png'),
+    loadingpet: require('../assets/images/loadingpet.gif'),
+    nowifi: require('../assets/images/nowifi.gif'),
 
 };
 export {

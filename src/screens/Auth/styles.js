@@ -152,7 +152,7 @@ export default StyleSheet.create({
         width: SW(30),
         height: SW(30),
         alignSelf:'center',
-        marginTop: SH(5),
+        marginTop: SH(1),
         marginBottom: SH(1),
     },
     showPasswordBtn:{
