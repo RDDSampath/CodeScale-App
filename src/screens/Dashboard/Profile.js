@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Alert, Image, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import { NativeModules } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { images } from '../../constants';
 import auth from '@react-native-firebase/auth';
 
@@ -46,7 +45,6 @@ const Profile = ({navigation}) => {
 
   const signOut = () => {
     auth().signOut().then(() => {
-      AsyncStorage.removeItem('user');
       ToastAndroid.show('User signed out successfully', ToastAndroid.SHORT);
       navigation.navigate('AuthNavigation');
     }).catch((error) => {
