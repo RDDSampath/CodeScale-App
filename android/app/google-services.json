@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "603401546961",
+    "firebase_url": "https://codescaleapp-default-rtdb.firebaseio.com",
+    "project_id": "codescaleapp",
+    "storage_bucket": "codescaleapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603401546961:android:eb47f8c43b561d622ca9f0",
+        "android_client_info": {
+          "package_name": "com.codescaleapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQdrojibOxpOqqQifSUSUbYbj4zzuX_MU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

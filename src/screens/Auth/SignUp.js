@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ToastAndroid, Image} from 'react-native';
 import styles from './styles';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import {app} from '../../firebase/config';
+//import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+//import {app} from '../../firebase/config';
 import colors from '../../constants/colors';
 import { images } from '../../constants/images';
+import auth from '@react-native-firebase/auth';
 
 const SignUp = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -60,27 +61,30 @@ const SignUp = ({navigation}) => {
         }
     };
 
-    const signUp = () => {
+    const signUp = async () => {
         if(!isLowerCase || !isUpperCase || !isNumber || !isLength || !checkConfirmPassword || !isValidEmail){
             ToastAndroid.show('Please check the rules', ToastAndroid.SHORT);
             return;
         }
-        const auth = getAuth(app);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.log(user);
-                // Update the user profile
-                updateProfile(user, {
-                    displayName: name
-                }).then(() => {
+        const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+        await userCredential.user.updateProfile({ displayName: name })
+        //const auth = getAuth(app);
+        //createUserWithEmailAndPassword(auth, email, password)
+            // .then((userCredential) => {
+            //     // Signed in 
+            //     const user = userCredential.user;
+            //     console.log(user);
+            //     // Update the user profile
+            //     updateProfile(user, {
+            //         displayName: name
+            //     })
+                .then(() => {
                     // Update successful
                     // ...
                     ToastAndroid.show('User signed up successfully', ToastAndroid.SHORT);
                     navigation.navigate("SignInScreen");
 
-            })})
+            })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;

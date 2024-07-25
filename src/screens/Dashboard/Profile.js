@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {Image, Text, TouchableOpacity, View } from 'react-native';
+import {Alert, Image, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import { NativeModules } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { images } from '../../constants';
+import auth from '@react-native-firebase/auth';
 
 const { BatteryLevel } = NativeModules;
 
 const Profile = ({navigation}) => {
 
   const [batteryLevel, setBatteryLevel] = useState(0);
-  const [user, setUser] = useState({});
-  console.log(user);
+  const user = auth().currentUser;
 
   useEffect(() => {
-    AsyncStorage.getItem('user').then((data) => {
-      if(data !== null) {
-        setUser(JSON.parse(data));
-      } else {
-        navigation.navigate('AuthNavigation');
-      }
-    });
     getBatteryLevel();
   }, []);
 
@@ -28,7 +21,7 @@ const Profile = ({navigation}) => {
   const getBatteryLevel = async () => {
     try {
         const batteryLevel = await BatteryLevel.getBatteryLevel();
-        console.log(`Battery Level: ${batteryLevel}%`);
+        //console.log(`Battery Level: ${batteryLevel}%`);
         setBatteryLevel(batteryLevel);
 
     } catch (e) {
@@ -36,10 +29,30 @@ const Profile = ({navigation}) => {
     }
 };
 
-  const logOut = () => {
-    AsyncStorage.clear();
-    console.log('User signed out');
-    navigation.navigate('AuthNavigation');
+  const logOutAlert = () => {
+    Alert.alert(
+      'Log out',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        },
+        { text: 'OK', onPress: () => signOut() }
+      ]
+    );
+  }
+
+  const signOut = () => {
+    auth().signOut().then(() => {
+      AsyncStorage.removeItem('user');
+      ToastAndroid.show('User signed out successfully', ToastAndroid.SHORT);
+      navigation.navigate('AuthNavigation');
+    }).catch((error) => {
+      ToastAndroid.show('Error during sign-out', ToastAndroid.SHORT);
+      console.error('Error during sign-out:', error);
+    });
   }
 
   const handleBack = () => {
@@ -68,7 +81,7 @@ const Profile = ({navigation}) => {
           <Image source={images.back} style={styles.back} resizeMode='contain' />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={logOut}>
+        <TouchableOpacity style={styles.button} onPress={logOutAlert}>
             <Text style={styles.buttonText}>Log out</Text>
         </TouchableOpacity>
 

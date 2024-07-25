@@ -5,29 +5,29 @@ import {
   responsiveScreenWidth as SW,
   responsiveScreenFontSize as RF,
 } from 'react-native-responsive-dimensions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { images } from '../../constants/images';
 import { fonts } from '../../constants';
 import colors from '../../constants/colors';
+import auth from '@react-native-firebase/auth';
 
 const SplashScreen = ({navigation}) => {
   // State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
-  
+
   useEffect(() => {
     setTimeout(async () => {
-      setAnimating(false);
-      // Check if user is already logged in or not
-      AsyncStorage.getItem('user').then((data) => {
-        if(data !== null) {
-          navigation.navigate('DashboardNavigation');
-  
-        } else {
-          navigation.navigate('AuthNavigation');
-        }
-    });
+      const user = auth().currentUser;
+      if (user) {
+        // User is signed in, navigate to the main screen
+        navigation.navigate('DashboardNavigation');  // Update with the correct screen name
+      } else {
+        // User is not signed in, navigate to the sign-in screen
+        navigation.navigate('AuthNavigation');
+      }
+      setLoading(false);
     }, 3000);
-  }, []);
+
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

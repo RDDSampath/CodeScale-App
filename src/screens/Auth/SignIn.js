@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity,ToastAndroid, Image } from 'react-native';
 import styles from './styles';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import app from '../../firebase/config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, images } from '../../constants';
+import auth from '@react-native-firebase/auth';
 
 const SignIn = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -20,13 +18,11 @@ const SignIn = ({navigation}) => {
             ToastAndroid.show('Invalid email address', ToastAndroid.SHORT);
             return;
         }
-        const auth = getAuth(app);
-        signInWithEmailAndPassword(auth, email, password)
+        auth()
+        .signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                AsyncStorage.setItem('user', JSON.stringify(user));
-                console.log('User data stored in AsyncStorage');
                 console.log('User signed in:', user);
                 ToastAndroid.show('User signed in successfully', ToastAndroid.SHORT);
                 navigation.navigate('DashboardNavigation');
