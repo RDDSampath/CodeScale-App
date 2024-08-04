@@ -4,27 +4,32 @@ import styles from './styles';
 import { NativeModules } from 'react-native';
 import { images } from '../../constants';
 import auth from '@react-native-firebase/auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { setBatteryLevel } from '../../store/batteryReducer';
 
 const { BatteryLevel } = NativeModules;
 
 const Profile = ({navigation}) => {
 
-  const [batteryLevel, setBatteryLevel] = useState(0);
   const user = auth().currentUser;
+  const battery = useSelector((state) => state.battery.value);
+  const dispatch = useDispatch();
+  
+  console.log('Battery:', battery);
 
   useEffect(() => {
     getBatteryLevel();
-  }, []);
+  }, [dispatch]);
 
 
   const getBatteryLevel = async () => {
     try {
         const batteryLevel = await BatteryLevel.getBatteryLevel();
         //console.log(`Battery Level: ${batteryLevel}%`);
-        setBatteryLevel(batteryLevel);
+        dispatch(setBatteryLevel(batteryLevel));
 
     } catch (e) {
-        console.error(e);
+        console.error("Battery Error",e);
     }
 };
 
@@ -73,7 +78,7 @@ const Profile = ({navigation}) => {
         </View>
         <View style={styles.inputBox}>
             <Text style={styles.labelTxt}>Battery Level</Text>
-            <Text style={styles.valuep}>{batteryLevel}%</Text>
+            <Text style={styles.valuep}>{battery}%</Text>
         </View>
         <TouchableOpacity style={styles.backBtn}onPress={handleBack}>
           <Image source={images.back} style={styles.back} resizeMode='contain' />
@@ -82,8 +87,6 @@ const Profile = ({navigation}) => {
         <TouchableOpacity style={styles.button} onPress={logOutAlert}>
             <Text style={styles.buttonText}>Log out</Text>
         </TouchableOpacity>
-
-
     </View>
   )
 }

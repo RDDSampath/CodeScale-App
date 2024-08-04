@@ -24,7 +24,6 @@ const SplashScreen = ({navigation}) => {
         // User is not signed in, navigate to the sign-in screen
         navigation.navigate('AuthNavigation');
       }
-      setLoading(false);
     }, 3000);
 
   }, [navigation]);

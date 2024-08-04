@@ -23,15 +23,14 @@ const SignIn = ({navigation}) => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log('User signed in:', user);
                 ToastAndroid.show('User signed in successfully', ToastAndroid.SHORT);
                 navigation.navigate('DashboardNavigation');
                 
             })
             .catch((error) => {
-                ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
                 console.error('Error during sign-in:', errorCode, errorMessage);
             });
     };

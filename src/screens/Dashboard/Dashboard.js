@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, FlatList, Image, TextInput, Button, PermissionsAndroid, Platform, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import api from '../../Api/Api';
 import Voice from '@react-native-voice/voice';
 import { images } from '../../constants';
+import { useSelector, useDispatch} from 'react-redux';
+import { fetchCharacters } from '../../store/characterReducer';
 
 const Dashboard = ({navigation}) => {
-    const [characters, setCharacters] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+    const characters = useSelector((state) => state.character.data);
+    const loading = useSelector((state) => state.character.isLoader);
+    const error = useSelector((state) => state.character.isError);
+    console.log('Characters:', characters);
     const [query, setQuery] = useState('');
     const [recognized, setRecognized] = useState('');
     const [started, setStarted] = useState('');
     const [results, setResults] = useState([]);
     const [start, setStart] = useState(false);
-    const [filteredCharacters, setFilteredCharacters] = useState([]);
+    const [filteredCharacters, setFilteredCharacters] = useState();
+    
 
     useEffect(() => {
-        const fetchCharacters = async () => {
-            try {
-                const data = await api.getCharacters();
-                setCharacters(data);
-                setFilteredCharacters(data);  // Initialize with all characters
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchCharacters();
-    }, []);
+        dispatch(fetchCharacters());
+    }, [dispatch]);
+
+    useEffect(() => {
+        setFilteredCharacters(characters);
+    }, [characters]);
 
     useEffect(() => {
         Voice.onSpeechStart = onSpeechStart;
@@ -63,33 +60,11 @@ const Dashboard = ({navigation}) => {
         try {
             setStart(true);
             await Voice.start('en-US');
-            setRecognized('');
-            setStarted('');
-            setResults([]);
             setQuery('');
             setStart(false);
         } catch (e) {
             console.error(e);
         }
-    };
-
-    const stopRecognizing = async () => {
-        try {
-            await Voice.stop();
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
-    const destroyRecognizer = async () => {
-        try {
-            await Voice.destroy();
-        } catch (e) {
-            console.error(e);
-        }
-        setRecognized('');
-        setStarted('');
-        setResults([]);
     };
 
     const requestMicrophonePermission = async () => {
